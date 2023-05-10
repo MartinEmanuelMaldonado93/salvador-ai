@@ -1,10 +1,8 @@
 import { Configuration, OpenAIApi } from "openai";
+import { env } from "@/env.mjs";
 
-if (!process.env.OPENAI_API_KEY) {
-	throw new Error('OpenAI Key does not exist');
-}
 const configuration = new Configuration({
-	apiKey: process.env.OPENAI_API_KEY
+	apiKey: env.OPENAI_API_KEY
 })
 
 export const openai = new OpenAIApi(configuration);
