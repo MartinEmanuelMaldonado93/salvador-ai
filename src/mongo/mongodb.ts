@@ -1,7 +1,7 @@
-import { env } from '@/env.mjs';
+import { enviroments } from '@/env.mjs';
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
-const uri = env.MONGODB_URI;
+const uri = enviroments.MONGODB_URI;
 const options: MongoClientOptions = {};
 
 let client;

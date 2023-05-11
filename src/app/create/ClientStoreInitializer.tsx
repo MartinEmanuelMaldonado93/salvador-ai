@@ -1,6 +1,6 @@
 'use client';
+import { useStore } from '@/store';
 import { formOpenAI } from '@/types';
-import { useStore } from '../../store/index';
 import { useRef } from 'react';
 
 export default function ClientStoreInitializer(

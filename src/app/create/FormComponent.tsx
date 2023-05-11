@@ -2,7 +2,7 @@ import { useStore } from '@/store';
 import { revalidatePath } from 'next/cache';
 import clientPromise from '@/mongo/mongodb';
 import { openai } from '../openAI';
-import { env } from '@/env.mjs';
+import { enviroments } from '@/env.mjs';
 
 async function generateImage(form: FormData) {
 	'use server';
@@ -23,24 +23,16 @@ async function generateImage(form: FormData) {
 		// if (response.status != 200) throw new Error('Response Failed');
 
 		// const photo_url = response.data.data[0].url;
-		const photo_url = 'https://picsum.photos/seed/cat/256/256';
+		const photo_url = 'https://picsum.photos/seed/256/256';
 
 		useStore.setState({
 			photo_url,
 			user_name: String(user_name),
-		});
-		// MongoDB client
-		const client = await clientPromise;
-		const db = client.db(env.MONGODB_DB);
-		const post = db.collection(env.MONGODB_COLL);
-		post.insertOne({
-			title: String(prompt),
-			user_name: String(user_name),
-			photo_url,
+			prompt: String(prompt),
 		});
 		revalidatePath('/create');
 	} catch (e) {
-		console.log(e);
+		console.log('catch', e);
 	}
 }
 
