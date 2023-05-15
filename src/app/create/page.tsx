@@ -1,9 +1,6 @@
-import { getRandomPrompt } from '@/helpers';
 import { useStore } from '@/store';
-import { formOpenAI } from '@/types';
-import ImageGenerated from './ImageGenerated';
-import ClientStoreInitializer from '@/app/create/ClientStoreInitializer';
-import FormComponent from './FormComponent';
+import ImageGenerated from './components/ImageGenerated';
+import FormComponent from './components/FormComponent';
 
 export default async function Open({
 	params,
@@ -13,8 +10,9 @@ export default async function Open({
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
 	const { user_name } = useStore.getState();
+
 	return (
-		<div className='m-4'>
+		<div className='max-w-6xl mx-auto h-[90vh] flex flex-col justify-center'>
 			{!!user_name && <div className='text-center'>Welcome {user_name}</div>}
 			<FormComponent />
 			<ImageGenerated {...useStore.getState()} />

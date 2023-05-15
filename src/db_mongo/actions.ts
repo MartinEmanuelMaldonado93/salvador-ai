@@ -1,6 +1,6 @@
 'use server';
 import { enviroments } from "@/env.mjs";
-import clientPromise from "@/mongo/mongodb";
+import clientPromise from "@/db_mongo/mongodb";
 import { useStore } from "@/store";
 import { formOpenAI } from "@/types";
 

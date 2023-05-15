@@ -18,7 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={(inter.className, 'min-h-screen')}>
-				<nav className='flex justify-around flex-wrap py-2 bg-base-100 text-sm'>
+				<nav className='flex justify-around flex-wrap py-2 bg-base-100 text-sm max-w-6xl mx-auto'>
 					<Link className='flex items-center gap-2 border rounded-md p-2' href='/'>
 						OpenAI
 						<Image

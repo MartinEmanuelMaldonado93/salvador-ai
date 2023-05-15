@@ -1,13 +1,10 @@
 'use client';
+import { saveImage } from '@/db_mongo/actions';
 import { formOpenAI } from '@/types';
-import { AnimatePresence, Variants, motion } from 'framer-motion';
-import { useStore } from '@/store';
-import { useEffect, useState, useTransition } from 'react';
-import { deleteItems, saveImage } from './action_mongoDB';
+import { useState, useTransition } from 'react';
 
 export default function ImageGenerated(props: formOpenAI) {
 	const { photo_url, user_name, prompt } = props;
-	const [rendered, setRenderer] = useState<boolean>(false);
 	let [isPending, startTransition] = useTransition();
 
 	return (
@@ -31,7 +28,17 @@ export default function ImageGenerated(props: formOpenAI) {
 						<button
 							type='button'
 							className='border shadow-md px-2 py-1 rounded-md active:translate-y-[1px]'
-							onClick={() => startTransition(() => saveImage(props))}
+							disabled={isPending}
+							onClick={() =>
+								startTransition(async () => {
+									try {
+										await saveImage(props);
+										console.log('saved!');
+									} catch {
+										console.log('save failed');
+									}
+								})
+							}
 						>
 							save{' '}
 						</button>
