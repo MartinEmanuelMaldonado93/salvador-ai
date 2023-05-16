@@ -2,6 +2,7 @@ import Link from 'next/link';
 import './globals.css';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+import ClientSessionProvider from './clientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +19,12 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={(inter.className, 'min-h-screen')}>
+			<ClientSessionProvider >
 				<nav className='flex justify-around flex-wrap py-2 bg-base-100 text-sm max-w-6xl mx-auto'>
-					<Link className='flex items-center gap-2 border rounded-md p-2' href='/'>
+					<Link
+						className='flex items-center gap-2 border rounded-md p-2'
+						href='/'
+					>
 						OpenAI
 						<Image
 							alt='openlogo'
@@ -33,6 +38,7 @@ export default function RootLayout({
 					</Link>
 				</nav>
 				{children}
+				</ClientSessionProvider>
 			</body>
 		</html>
 	);

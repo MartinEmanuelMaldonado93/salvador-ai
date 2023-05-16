@@ -6,7 +6,6 @@ import { formOpenAI } from "@/types";
 
 export async function generateAndSaveImage(form: FormData) {
 	const prompt = form.get('prompt');
-	// const prompt = useStore.getState().prompt;
 	const user_name = form.get('name_user');
 
 	if (!prompt || !user_name)
