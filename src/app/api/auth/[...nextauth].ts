@@ -6,10 +6,13 @@ import GoogleProvider from 'next-auth/providers/google';
 export const authOptions: AuthOptions = {
 	providers: [
 		GoogleProvider({
-			clientId: 'asdmasklmd',
-			clientSecret: 'amsdaldk'
+			clientId: enviroments.GOOGLE_CLIENT_ID,
+			clientSecret: enviroments.GOOGLE_CLIENT_SECRET
 		})
 	],
+	session: {
+		strategy: 'jwt',
+	},
 	pages: {
 		signIn: '/signin',
 	}

@@ -9,7 +9,7 @@ export default async function Open({
 	params: { slug: string };
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-	const { user_name } = useStore.getState();
+	const { user_name } = useStore.getState();//session
 
 	return (
 		<div className='max-w-6xl mx-auto h-[90vh] flex flex-col justify-center'>

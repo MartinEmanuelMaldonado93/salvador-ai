@@ -15,6 +15,7 @@ export default function FormComponent() {
 				placeholder={'Your name here'}
 				required
 			/>
+			{/* input client works inside of the form  */}
 			<InputClient />
 			<div className='mt-5 flex gap-5 justify-center'>
 				<button
