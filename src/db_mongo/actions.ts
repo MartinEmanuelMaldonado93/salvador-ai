@@ -32,3 +32,18 @@ export async function deleteItems() {
 	post.deleteMany({ $where: function () { return this.user_name === 'john doe' } })
 
 }
+
+export async function getImagesByUser() {
+	const { user_name } = useStore.getState();
+
+	const client = await clientPromise;
+	const db = client.db(enviroments.MONGODB_DB);
+	const post = db.collection(enviroments.MONGODB_COLL);
+	const gallery = post.find({
+		$where: function () {
+			return this.user_name == user_name
+		}
+	})
+
+	return gallery.toArray();
+}

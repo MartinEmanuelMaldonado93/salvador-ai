@@ -3,7 +3,9 @@ import { useStore } from "@/store";
 import { revalidatePath } from "next/cache";
 import { enviroments } from "@/env.mjs";
 import { formOpenAI } from "@/types";
+import { openai } from "./configuration";
 
+/** Set form data to a fetch function and update the server state */
 export async function generateAndSaveImage(form: FormData) {
 	const prompt = form.get('prompt');
 	const user_name = form.get('name_user');
@@ -12,8 +14,7 @@ export async function generateAndSaveImage(form: FormData) {
 		throw new Error('Some of the form fields are empty.');
 
 	try {
-		let photo_url = '';
-		photo_url = await fetchImageGen({ prompt: String(prompt) });
+		const photo_url = await getUrlOfImageGenerated({ prompt: String(prompt) });
 		if (!photo_url) throw new Error('photo_url not finded');
 
 		useStore.setState({
@@ -22,13 +23,12 @@ export async function generateAndSaveImage(form: FormData) {
 			prompt: String(prompt),
 		});
 		revalidatePath('/create');
-	} catch (e) {
-		console.log('catch', e);
+	} catch (error) {
+		if (error instanceof Error) console.log(error.message);
 	}
 }
-
-export async function fetchImageGen({ prompt }: formOpenAI) {
-	const url = enviroments.OPENAI_URL;
+/** rapidapi api  */
+async function fetchImageGen({ prompt }: formOpenAI) {
 	const options = {
 		method: 'POST',
 		headers: {
@@ -46,14 +46,35 @@ export async function fetchImageGen({ prompt }: formOpenAI) {
 
 	let photo_url = '';
 	try {
-		const response = await fetch(url, options);
+		const response = await fetch(enviroments.OPENAI_URL, options);
 		if (!response.ok) throw new Error('Error response');
 
 		const result = await response.json();
 		photo_url = result.data[0].url as string;
 	} catch (error) {
-		console.error(error);
+		if (error instanceof Error) console.log(error.message);
+
 	}
 
 	return photo_url;
+}
+/** official api */
+async function getUrlOfImageGenerated({ prompt }: formOpenAI) {
+	try {
+		const response = await openai.createImage({
+			prompt: String(prompt),
+			n: 1,
+			size: "256x256",
+		});
+
+		if (!response) throw new Error();
+
+		return response.data.data[0].url;
+
+	} catch (error) {
+		if (error instanceof Error) console.log(error.message, error.name);
+	} finally {
+		console.log(prompt)
+	}
+
 }

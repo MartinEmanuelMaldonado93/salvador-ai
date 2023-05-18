@@ -18,10 +18,7 @@ export default function FormComponent() {
 			{/* input client works inside of the form  */}
 			<InputClient />
 			<div className='mt-5 flex gap-5 justify-center'>
-				<button
-					formAction={generateAndSaveImage}
-					className=' text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
-				>
+				<button className=' duration-200 active:translate-y-1 text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
 					Generate
 				</button>
 			</div>
