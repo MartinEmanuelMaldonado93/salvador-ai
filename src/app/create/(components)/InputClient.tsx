@@ -1,32 +1,32 @@
-'use client';
-import { useState } from 'react';
-import { getRandomPrompt } from '@/helpers';
+"use client";
+import { useState } from "react";
+import { getRandomPrompt } from "@/helpers";
 
 export default function InputClient() {
-	const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
 
-	return (
-		<div className='flex gap-1'>
-			<input
-				type='text'
-				id='prompt_input'
-				name='prompt'
-				className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3 transition-all duration-200 active:translate-x-1'
-				placeholder={'Your prompt'}
-				value={prompt}
-				required
-				onChange={async ({ target }) => {
-					if (!target.value) return;
-					setPrompt(target.value);
-				}}
-			/>
-			<button
-				type='button'
-				className='font-semibold text-xs bg-[#EcECF1] py-1 px-2 rounded-[5px] text-black duration-200 active:translate-x-1'
-				onClick={() => setPrompt(getRandomPrompt('random prompt'))}
-			>
-				Surprise me
-			</button>
-		</div>
-	);
+  return (
+    <div className="flex gap-1">
+      <input
+        type="text"
+        id="prompt_input"
+        name="prompt"
+        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#6469ff] focus:ring-[#6469ff] active:translate-x-1"
+        placeholder={"Your prompt"}
+        value={prompt}
+        required
+        onChange={async ({ target }) => {
+          if (!target.value) return;
+          setPrompt(target.value);
+        }}
+      />
+      <button
+        type="button"
+        className="rounded-[5px] bg-[#EcECF1] px-2 py-1 text-xs font-semibold text-black duration-200 active:translate-x-1"
+        onClick={() => setPrompt(getRandomPrompt("random prompt"))}
+      >
+        Surprise me
+      </button>
+    </div>
+  );
 }

@@ -1,9 +1,9 @@
-import './src/env.mjs';
+import "./src/env.mjs";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	experimental: {
-		serverActions: true,
-	},
+  experimental: {
+    serverActions: true,
+  },
 };
 
 export default nextConfig;

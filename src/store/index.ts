@@ -1,1 +1,1 @@
-export * from './storeOpenAi';
+export * from "./storeOpenAi";
