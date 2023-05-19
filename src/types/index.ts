@@ -17,4 +17,11 @@ export type formProps = {
 export type imageObject = {
   url_image?: string;
   b64_image?: string;
-} 
+}
+
+export type PostsType = {
+  photo_url: string;
+  title: string;
+  user_name: string;
+  _id: string;
+};

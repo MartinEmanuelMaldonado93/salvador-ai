@@ -24,9 +24,13 @@ export function base64ToBlob(base64Data: string, contentType: string) {
 }
 
 /** this is going inside of download client btn */
-export async function downloadImage(_id: string, photo: string) {
-	FileSaver.saveAs(photo, `download-${_id}.jpg`);
+export async function downloadImage({_id, photo_url}:{_id?:string, photo_url:string}) {
+	const random = parseInt(Math.floor(Math.random()*100).toFixed(2));
+
+	FileSaver.saveAs(photo_url, `download-${_id ?? random}.jpg`);
+	// FileSaver.saveAs(photo, `download-${_id}.jpg`);
 }
+
 export function safeEncodeTo64(str: string) {
 	return Buffer.from(String(str)).toString("base64");
 }
