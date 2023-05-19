@@ -13,3 +13,8 @@ export type formProps = {
   isSurpriseMe?: boolean;
   handleSurpriseMe?: () => void;
 };
+
+export type imageObject = {
+  url_image?: string;
+  b64_image?: string;
+} 

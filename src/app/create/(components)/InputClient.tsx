@@ -11,7 +11,7 @@ export default function InputClient() {
         type="text"
         id="prompt_input"
         name="prompt"
-        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition-all duration-200 focus:border-[#6469ff] focus:ring-[#6469ff] active:translate-x-1"
+        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none focus:border-[#6469ff] focus:ring-[#6469ff]"
         placeholder={"Your prompt"}
         value={prompt}
         required
@@ -22,7 +22,7 @@ export default function InputClient() {
       />
       <button
         type="button"
-        className="rounded-[5px] bg-[#EcECF1] px-2 py-1 text-xs font-semibold text-black duration-200 active:translate-x-1"
+        className="rounded-[5px] bg-[#EcECF1] px-2 py-1 text-xs font-semibold text-black duration-200 active:scale-50"
         onClick={() => setPrompt(getRandomPrompt("random prompt"))}
       >
         Surprise me

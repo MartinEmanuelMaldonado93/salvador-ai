@@ -18,34 +18,32 @@ export async function saveImage(props: formOpenAI) {
   const db = client.db(enviroments.MONGODB_DB);
   const post = db.collection(enviroments.MONGODB_COLL);
   post.insertOne({
-    title: user_name,
     user_name,
+    prompt,
     photo_url,
   });
 }
 
-export async function deleteItems() {
+export async function deletePostsByName(user_name: string) {
   const client = await clientPromise;
   const db = client.db(enviroments.MONGODB_DB);
   const post = db.collection(enviroments.MONGODB_COLL);
   post.deleteMany({
     $where: function () {
-      return this.user_name === "john doe";
+      return this.user_name === user_name;
     },
   });
 }
 
-export async function getImagesByUser() {
-  const { user_name } = useStore.getState();
+export async function getImagesByUser(user_name: string) {
+  if (!user_name || user_name === "") throw new Error('user name not defined')
 
   const client = await clientPromise;
   const db = client.db(enviroments.MONGODB_DB);
   const post = db.collection(enviroments.MONGODB_COLL);
-  const gallery = post.find({
-    $where: function () {
-      return this.user_name == user_name;
-    },
-  });
 
-  return gallery.toArray();
+  const posts = await post.find({ user_name: { $eq: user_name } }).toArray();
+
+  const postsWithIDFixed = posts.map((item) => ({ ...item, _id: item._id.toString() }))
+  return postsWithIDFixed;
 }
