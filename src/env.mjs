@@ -12,11 +12,13 @@ export const enviroments = createEnv({
     OPENAI_URL: z.string().min(1),
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     GOOGLE_CLIENT_ID: z.string().min(1),
+    JWT_SECRET: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
   },
   runtimeEnv: {
+    JWT_SECRET: process.env.JWT_SECRET,
     MONGODB_URI: process.env.MONGODB_URI,
     MONGODB_KEY: process.env.MONGODB_KEY,
     MONGODB_DB: process.env.MONGODB_DB,
