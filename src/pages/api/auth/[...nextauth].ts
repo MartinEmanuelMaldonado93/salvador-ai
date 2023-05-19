@@ -14,9 +14,6 @@ export default async function auth(req: any, res: any) {
     session: {
       strategy: "jwt",
     },
-    pages: {
-      signIn: "/signin",
-    },
   });
 }
 
