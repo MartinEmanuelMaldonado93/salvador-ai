@@ -20,7 +20,7 @@ export default function Gallery() {
         const res = await getImagesByUser(data.user?.name);
         setGallery(res);
       } catch (e) {
-        if (e instanceof Error) console.error(e.message);
+        if (e instanceof Error) console.error("client,",e.message);
       }
     })();
   }, [!!data?.user]);

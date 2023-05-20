@@ -42,7 +42,7 @@ export async function deletePostsByName(user_name: string) {
 }
 
 export async function getImagesByUser(user_name?: string | null): Promise<PostsType[]> {
-  if (!user_name || user_name === "") throw new Error('user name not defined');
+  if (!user_name) throw new Error('user name not defined');
   const lowerUserName = user_name.toLowerCase();
 
   const client = await clientPromise;
