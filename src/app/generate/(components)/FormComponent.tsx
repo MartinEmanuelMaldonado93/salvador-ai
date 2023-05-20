@@ -18,9 +18,7 @@ export default function FormComponent() {
       {/* input client works inside of the form  */}
       <InputClient />
       <div className="mt-5 flex justify-center gap-5">
-        <button
-          className=" w-full rounded-md bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white duration-200 active:translate-y-1 sm:w-auto"
-        >
+        <button className=" w-full rounded-md bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white duration-200 active:translate-y-1 sm:w-auto">
           Generate
         </button>
       </div>

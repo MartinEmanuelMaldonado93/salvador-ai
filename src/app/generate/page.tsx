@@ -11,7 +11,7 @@ export default async function Open() {
       <div className="mx-auto mt-10 max-w-xl">
         <Link
           href="/gallery"
-          className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
+          className="rounded-md border p-2 px-2 py-1 shadow-md duration-200 hover:bg-slate-200 hover:scale-50"
         >
           Got to my gallery →
         </Link>
