@@ -23,7 +23,7 @@ export default function Gallery() {
         if (e instanceof Error) console.error("client,",e.message);
       }
     })();
-  }, [!!data?.user]);
+  }, [data]);
 
   return (
     <div className="mt-6 flex h-full flex-col gap-4">
@@ -54,7 +54,7 @@ export default function Gallery() {
             initial={{ opacity: 0, translateY: "20%" }}
             animate={{ opacity: 1, translateY: 0 }}
           >
-            Couldn't show your images please login{" "}
+            Couldn&apos;t show your images please login{" "}
           </motion.div>
         </AnimatePresence>
       )}

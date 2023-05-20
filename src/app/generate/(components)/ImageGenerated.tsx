@@ -12,11 +12,9 @@ export default function ImageGenerated({
   prompt,
   user_name,
 }: formOpenAI) {
-  if(!photo_url) return null;
-
-  let [isPending, startTransition] = useTransition();
   const { data, status } = useSession();
   const [saved, setSaved] = useState(false);
+  if (!photo_url) return null;
 
   return (
     <div className="shadow-md">
@@ -49,16 +47,20 @@ export default function ImageGenerated({
               <button
                 type="button"
                 className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
-                disabled={isPending}
+                disabled={saved}
                 onClick={() => {
-                  startTransition(async () => {
+                  async () => {
                     try {
-                      const result = await saveImage({ photo_url, prompt, user_name });
+                      const result = await saveImage({
+                        photo_url,
+                        prompt,
+                        user_name,
+                      });
                       result && setSaved(true);
                     } catch {
                       console.log("save failed");
                     }
-                  });
+                  };
                 }}
               >
                 Save image
@@ -72,7 +74,7 @@ export default function ImageGenerated({
             <button
               type="button"
               className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
-              disabled={isPending}
+              disabled={saved}
               onClick={() => signIn("google")}
             >
               Login to save your images
