@@ -19,7 +19,7 @@ export default function Gallery() {
       try {
         if (!data.user?.name) throw new Error("user name not loaded");
 
-        const res = await getImagesByUser(data.user.name);
+        const res = await getImagesByUser({ user_name: data.user.name });
         setGallery(res);
       } catch (e) {
         if (e instanceof Error) console.error("client,", e.message);
@@ -73,9 +73,10 @@ export default function Gallery() {
               key={Math.random().toString()}
               className={css.imageContainer}
             >
-              <img
+              <motion.img
+                layout
                 src={post.photo_url}
-                className={`photoUrl w-32 rounded-md sm:w-52 ${css.photoUrl}`}
+                className={`photoUrl w-32 rounded-md sm:w-40 ${css.photoUrl}`}
               />
               <button
                 className={`downloadBtn w-full rounded-md border px-2 py-1 shadow-md active:translate-y-[1px] ${css.downloadBtn}`}
