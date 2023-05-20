@@ -24,6 +24,7 @@ export async function saveImage({ photo_url, prompt, user_name }: formOpenAI) {
       prompt,
       photo_url,
     });
+    console.log('saved!');
     return true;
   } catch {
     throw new Error("couldn't save the file");
