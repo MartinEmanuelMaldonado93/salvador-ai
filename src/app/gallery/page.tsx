@@ -13,28 +13,28 @@ export default function Gallery() {
   const [gallery, setGallery] = useState<PostsType[] | null>(null);
   const { data, status } = useSession();
 
-  useEffect(() => {
-    status ==='authenticated' && (async () => {
-      try {
-        if (!data.user?.name) throw new Error("user name not loaded");
+  // useEffect(() => {
+  //   status ==='authenticated' && (async () => {
+  //     try {
+  //       if (!data.user?.name) throw new Error("user name not loaded");
 
-        const res = await getImagesByUser({ user_name: data.user.name });
-        setGallery(res);
-      } catch (e) {
-        if (e instanceof Error) console.error("client,", e.message);
-      }
-    })();
-  }, [status]);
+  //       const res = await getImagesByUser({ user_name: data.user.name });
+  //       setGallery(res);
+  //     } catch (e) {
+  //       if (e instanceof Error) console.error("client,", e.message);
+  //     }
+  //   })();
+  // }, [status]);
 
   return (
     <div className="mt-6 flex h-full flex-col gap-4">
       <div className="flex items-center justify-center gap-8">
         <motion.div
-          initial={{ opacity: 0, translateY: "10%", height: '0%' }}
+          initial={{ opacity: 0, translateY: "10%", height: "0%" }}
           animate={{
             opacity: 1,
             translateY: 0,
-            height:'100%',
+            height: "100%",
             transition: { ease: "easeOut" },
           }}
         >
@@ -60,7 +60,7 @@ export default function Gallery() {
           </motion.div>
         </AnimatePresence>
       )}
-      {gallery ? (
+      {gallery && (
         <motion.div
           className="mt-8 flex flex-wrap justify-center gap-8 px-4"
           variants={parentVariants}
@@ -87,8 +87,27 @@ export default function Gallery() {
             </motion.div>
           ))}
         </motion.div>
-      ) : (
-        <Loading />
+      )}
+      {status==='authenticated' && !gallery && (
+        <div className="text-center">
+          <button
+            className="rounded-md border p-2 hover:bg-slate-200 active:translate-y-1"
+            onClick={async () => {
+              try {
+                if (!data?.user?.name) throw new Error("user name not loaded");
+
+                const res = await getImagesByUser({
+                  user_name: data.user.name,
+                });
+                setGallery(res);
+              } catch (e) {
+                if (e instanceof Error) console.error("client,", e.message);
+              }
+            }}
+          >
+            Show gallery{" "}
+          </button>
+        </div>
       )}
     </div>
   );
