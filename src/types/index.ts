@@ -21,7 +21,7 @@ export type imageObject = {
 
 export type PostsType = {
   photo_url: string;
-  title: string;
+  prompt: string;
   user_name: string;
   _id: string;
 };

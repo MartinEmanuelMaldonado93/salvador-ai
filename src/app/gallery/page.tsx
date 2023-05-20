@@ -15,7 +15,7 @@ export default function Gallery() {
     data && data.user && setPhotoImageUrl(data.user.image!);
     (async () => {
       try {
-        const res = await getImagesByUser("martincito");
+        const res = await getImagesByUser(data?.user?.name);
         console.log(res);
         setGallery(res);
       } catch (e) {
@@ -25,7 +25,7 @@ export default function Gallery() {
   }, [data?.user]);
 
   return (
-    <div className="flex h-full flex-col gap-4 mt-6">
+    <div className="mt-6 flex h-full flex-col gap-4">
       <div className="flex items-center justify-center gap-8">
         {data?.user?.name}
         {photoImageUrl && (
@@ -37,24 +37,34 @@ export default function Gallery() {
           />
         )}
       </div>
-      {status=="unauthenticated" && <div>please login </div>}
-      <motion.div className="flex flex-wrap px-4" variants={parentVariants}>
+      {status == "unauthenticated" && (
         <AnimatePresence>
-          {gallery &&
-            gallery.map((post) => (
-              <motion.div
-                variants={childrenVariants}
-                initial="hidde"
-                animate="show"
-                key={Math.random().toString()}
-                className="transition-all"
-              >
-                <div>{post.title}</div>
-                <img src={post.photo_url} className="w-32 rounded-md sm:w-52" />
-              </motion.div>
-            ))}
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 0.5 } }}
+          >
+            Couldn't show your images please login{" "}
+          </motion.div>
         </AnimatePresence>
-      </motion.div>
+      )}
+      {gallery && (
+        <motion.div
+          className="flex flex-wrap justify-center gap-8 px-4"
+          variants={parentVariants}
+          initial="hidde"
+          animate="show"
+        >
+          {gallery.map((post) => (
+            <motion.div
+              variants={childrenVariants}
+              key={Math.random().toString()}
+            >
+              <img src={post.photo_url} className="w-32 rounded-md sm:w-52" />
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 }

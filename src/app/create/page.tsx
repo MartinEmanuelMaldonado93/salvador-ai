@@ -6,11 +6,10 @@ import Link from "next/link";
 export default async function Open() {
   const { photo_url } = useStore.getState();
   return (
-    <div className="mx-auto flex gap-4 min-h-[88vh] max-w-6xl flex-col justify-center px-4">
-      {/* welcome client component */}
+    <div className="mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-center gap-4 px-4">
       <FormComponent />
       {!!photo_url && <ImageGenerated {...useStore.getState()} />}
-      <div>
+      <div className="mx-auto mt-10 max-w-xl">
         <Link
           href="/gallery"
           className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
