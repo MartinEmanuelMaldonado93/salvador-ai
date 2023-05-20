@@ -44,13 +44,13 @@ export async function deletePostsByName(user_name: string) {
 export async function getImagesByUser(user_name?: string | null): Promise<PostsType[]> {
   if (!user_name) throw new Error('user name not defined');
   const lowerUserName = user_name.toLowerCase();
-
+  console.log(lowerUserName)
   const client = await clientPromise;
   const db = client.db(enviroments.MONGODB_DB);
   const post = db.collection(enviroments.MONGODB_COLL);
 
   const posts = await post.find({ user_name: { $eq: lowerUserName } }).toArray();
-  if (!posts || posts.length === 0) throw new Error(`User [${lowerUserName}] doesnt exist or dont have posts yet`);
+  if (!posts || !posts.length) throw new Error(`User [${lowerUserName}] doesnt exist or dont have posts yet`);
 
   const postsWithIDFixed = posts.map((item) => ({ ...item, _id: item._id.toString() }));//ts doesn't recognize well return type since the mongodb schema  is not defined
   return postsWithIDFixed as PostsType[];

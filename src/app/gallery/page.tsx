@@ -17,10 +17,12 @@ export default function Gallery() {
     if (!data || !data.user) return;
     (async () => {
       try {
-        const res = await getImagesByUser(data.user?.name);
+        if (!data.user?.name) throw new Error("user name not loaded");
+
+        const res = await getImagesByUser(data.user.name);
         setGallery(res);
       } catch (e) {
-        if (e instanceof Error) console.error("client,",e.message);
+        if (e instanceof Error) console.error("client,", e.message);
       }
     })();
   }, [data]);
