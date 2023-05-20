@@ -20,7 +20,7 @@ export async function saveImage({ photo_url, prompt, user_name }: formOpenAI) {
     const db = client.db(enviroments.MONGODB_DB);
     const post = db.collection(enviroments.MONGODB_COLL);
     post.insertOne({
-      lowerUserName,
+      user_name: lowerUserName,
       prompt,
       photo_url,
     });

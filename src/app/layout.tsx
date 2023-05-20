@@ -8,7 +8,7 @@ import LogGroup from "./(components)/LogGroup";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Open Generator",
+  title: "Dall-e Generator",
   description: "latest of next.js",
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
               className="flex items-center gap-2 rounded-md border p-2 duration-200  hover:bg-slate-200 active:translate-y-1"
               href="/"
             >
-              OpenAI
+              Dall-e api
               <Image
                 alt="openlogo"
                 src={"/open_logo.svg"}
