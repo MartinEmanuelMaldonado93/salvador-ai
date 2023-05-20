@@ -1,0 +1,16 @@
+.imageContainer {
+  overflow-y: hidden;
+}
+.photoUrl:hover ~ .downloadBtn {
+  bottom: 50%;
+}
+.downloadBtn {
+  position:absolute;
+  bottom: 0%;
+  background-color: hsl(0, 0%, 96%,.8);
+  transition-duration: 200ms;
+  translate: 0 4rem;
+}
+.downloadBtn:hover {
+  bottom: 50%;
+}

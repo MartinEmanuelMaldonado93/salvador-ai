@@ -1,13 +1,12 @@
 import { Variants } from "framer-motion";
 
 export const parentVariants: Variants = {
-	hidde: { opacity: 0.3},
+	hidde: {},
 	show: {
-		opacity: 1,
 		transition: {
 			when: "beforeChildren",
-			delayChildren: 0.8,
-			staggerChildren: 1,
+			delayChildren: 0.4,
+			staggerChildren: 0.3,
 		},
 	},
 }
@@ -18,7 +17,7 @@ export const childrenVariants: Variants = {
 		opacity: 1,
 		translateY: 0,
 		transition: {
-			stiffness: 200,
+			stiffness: 90,
 			damping: 2,
 		}
 	},

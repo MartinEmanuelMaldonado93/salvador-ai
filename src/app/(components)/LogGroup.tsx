@@ -15,7 +15,15 @@ export default function LogGroup() {
         ))
         .with("unauthenticated", () => (
           <div className="text-center">
-            <button onClick={() => signIn("google")}>Login google</button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                signIn("google");
+              }}
+            >
+              Login google
+            </button>
           </div>
         ))
         .with("loading", () => <div className="animate-pulse">Loading...</div>)

@@ -12,6 +12,8 @@ export default function ImageGenerated({
   prompt,
   user_name,
 }: formOpenAI) {
+  if(!photo_url) return null;
+
   let [isPending, startTransition] = useTransition();
   const { data, status } = useSession();
   const [saved, setSaved] = useState(false);
@@ -35,9 +37,9 @@ export default function ImageGenerated({
       <div className="text-center">
         <button
           className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
-          onClick={() => downloadImage({ photo_url: photo_url! })}
+          onClick={() => downloadImage({ photo_url })}
         >
-          Downoald
+          Download
         </button>
         {match(status)
           .with("authenticated", () =>
@@ -51,10 +53,8 @@ export default function ImageGenerated({
                 onClick={() => {
                   startTransition(async () => {
                     try {
-                      await saveImage({ photo_url, prompt, user_name });
-                      console.log("saved!");
-                      setSaved(true);
-                      // route.push('/collections');
+                      const result = await saveImage({ photo_url, prompt, user_name });
+                      result && setSaved(true);
                     } catch {
                       console.log("save failed");
                     }
