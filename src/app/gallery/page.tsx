@@ -14,8 +14,7 @@ export default function Gallery() {
   const { data, status } = useSession();
 
   useEffect(() => {
-    if (!data || !data.user) return;
-    (async () => {
+    status ==='authenticated' && (async () => {
       try {
         if (!data.user?.name) throw new Error("user name not loaded");
 
@@ -25,16 +24,17 @@ export default function Gallery() {
         if (e instanceof Error) console.error("client,", e.message);
       }
     })();
-  }, [data]);
+  }, [status]);
 
   return (
     <div className="mt-6 flex h-full flex-col gap-4">
       <div className="flex items-center justify-center gap-8">
         <motion.div
-          initial={{ opacity: 0, translateY: "10%" }}
+          initial={{ opacity: 0, translateY: "10%", height: '0%' }}
           animate={{
             opacity: 1,
             translateY: 0,
+            height:'100%',
             transition: { ease: "easeOut" },
           }}
         >
