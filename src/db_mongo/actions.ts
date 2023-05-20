@@ -43,7 +43,7 @@ export async function deletePostsByName(user_name: string) {
 
 export async function getImagesByUser({ user_name }: { user_name?: string | null }): Promise<PostsType[]> {
   if (!user_name) throw new Error('user name not defined');
-  const lowerUserName = user_name.toLowerCase();
+  const lowerUserName = "martin maldonado";//user_name.toLowerCase();
   const client = await clientPromise;
   const db = client.db(enviroments.MONGODB_DB);
   const post = db.collection(enviroments.MONGODB_COLL);
