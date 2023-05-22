@@ -42,13 +42,20 @@ export default function Gallery() {
             opacity: 1,
             translateY: 0,
             height: "100%",
-            transition: { ease: "easeOut" },
+            transition: { ease: "easeOut", delay: 0.5 },
           }}
         >
           {data?.user?.name}
         </motion.div>
         {data?.user?.image && (
-          <img
+          <motion.img
+            initial={{ opacity: 0, translateX: "10%", height: "0%" }}
+            animate={{
+              opacity: 1,
+              translateX: 0,
+              height: "100%",
+              transition: { ease: "easeOut", delay: 0.5 },
+            }}
             className="rounded-full object-cover"
             width={"30px"}
             src={data?.user?.image}
