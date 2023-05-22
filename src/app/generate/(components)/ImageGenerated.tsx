@@ -6,6 +6,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { match, P } from "ts-pattern";
 import { downloadImage } from "@/helpers";
 import Link from "next/link";
+import useSWR, { SWRConfig } from "swr";
 
 export default function ImageGenerated({
   photo_url,
@@ -49,18 +50,19 @@ export default function ImageGenerated({
                 className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
                 disabled={saved}
                 onClick={() => {
-                  async () => {
-                    try {
-                      const result = await saveImage({
-                        photo_url,
-                        prompt,
-                        user_name,
-                      });
-                      result && setSaved(true);
-                    } catch {
-                      console.log("save failed");
-                    }
-                  };
+                  // async () => {
+                  //   try {
+                  //     const result = await saveImage({
+                  //       photo_url,
+                  //       prompt,
+                  //       user_name,
+                  //     });
+                  //     result && setSaved(true);
+                  //     console.log(result);
+                  //   } catch {
+                  //     console.log("save failed");
+                  //   }
+                  // };
                 }}
               >
                 Save image

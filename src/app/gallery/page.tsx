@@ -8,23 +8,29 @@ import { childrenVariants, parentVariants } from "./motion_variants";
 import Loading from "./loading";
 import { downloadImage } from "@/helpers";
 import css from "./page.module.css";
+import useSWR from "swr";
 
 export default function Gallery() {
   const [gallery, setGallery] = useState<PostsType[] | null>(null);
   const { data, status } = useSession();
+  const {
+    data: dataGallery,
+    error,
+    isLoading,
+    isValidating,
+  } = useSWR("gallery", (key) =>
+    fetch("http://localhost:3000/gallery/api", {
+      method: "POST",
+      body: JSON.stringify("martin maldonado"),
+    })
+  );
 
-  // useEffect(() => {
-  //   status ==='authenticated' && (async () => {
-  //     try {
-  //       if (!data.user?.name) throw new Error("user name not loaded");
-
-  //       const res = await getImagesByUser({ user_name: data.user.name });
-  //       setGallery(res);
-  //     } catch (e) {
-  //       if (e instanceof Error) console.error("client,", e.message);
-  //     }
-  //   })();
-  // }, [status]);
+  useEffect(() => {
+    (async function () {
+      const data = await dataGallery?.json();
+      data && setGallery(data);
+    })();
+  }, [dataGallery]);
 
   return (
     <div className="mt-6 flex h-full flex-col gap-4">
@@ -60,6 +66,7 @@ export default function Gallery() {
           </motion.div>
         </AnimatePresence>
       )}
+      {isLoading && <Loading />}
       {gallery && (
         <motion.div
           className="mt-8 flex flex-wrap justify-center gap-8 px-4"
@@ -87,27 +94,6 @@ export default function Gallery() {
             </motion.div>
           ))}
         </motion.div>
-      )}
-      {status==='authenticated' && !gallery && (
-        <div className="text-center">
-          <button
-            className="rounded-md border p-2 hover:bg-slate-200 active:translate-y-1"
-            onClick={async () => {
-              try {
-                if (!data?.user?.name) throw new Error("user name not loaded");
-
-                const res = await getImagesByUser({
-                  user_name: data.user.name,
-                });
-                setGallery(res);
-              } catch (e) {
-                if (e instanceof Error) console.error("client,", e.message);
-              }
-            }}
-          >
-            Show gallery{" "}
-          </button>
-        </div>
       )}
     </div>
   );
