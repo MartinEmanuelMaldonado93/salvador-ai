@@ -1,0 +1,1 @@
+export const baseUrl = 'https://salvador-ai.vercel.app/'

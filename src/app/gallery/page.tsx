@@ -9,6 +9,7 @@ import Loading from "./loading";
 import { downloadImage } from "@/helpers";
 import css from "./page.module.css";
 import useSWR from "swr";
+import { baseUrl } from "@/swr";
 
 export default function Gallery() {
   const [gallery, setGallery] = useState<PostsType[] | null>(null);
@@ -19,7 +20,7 @@ export default function Gallery() {
     isLoading,
     isValidating,
   } = useSWR("gallery", (key) =>
-    fetch("http://localhost:3000/gallery/api", {
+    fetch(`${baseUrl}/gallery/api`, {
       method: "POST",
       body: JSON.stringify("martin maldonado"),
     })
