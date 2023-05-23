@@ -1,37 +1,34 @@
 "use client";
-import { getImagesByUser } from "@/db_mongo/actions";
 import { PostsType } from "@/types";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
-import { childrenVariants, parentVariants } from "./motion_variants";
+import { childrenGallery, parentGallery } from "./page.motion";
 import Loading from "./loading";
 import { downloadImage } from "@/helpers";
 import css from "./page.module.css";
 import useSWR from "swr";
 import { baseUrl } from "@/swr";
+import ErrorSession from "./error";
 
 export default function Gallery() {
   const [gallery, setGallery] = useState<PostsType[] | null>(null);
-  const { data, status } = useSession();
-  const {
-    data: dataGallery,
-    error,
-    isLoading,
-    isValidating,
-  } = useSWR("gallery", (key) =>
-    fetch(`${baseUrl}/gallery/api`, {
-      method: "POST",
-      body: JSON.stringify("martin maldonado"),
-    })
+  const { data: dataSession, status } = useSession();
+
+  const { data, error, isLoading } = useSWR(
+    dataSession?.user?.name ? "gallery" : null,
+    (key) =>
+      fetch(`${baseUrl}/${key}/api?user=${dataSession?.user?.name}`, {
+        method: "GET",
+      })
   );
 
   useEffect(() => {
-    (async function () {
-      const data = await dataGallery?.json();
-      data && setGallery(data);
+    (async () => {
+      const responseData = await data?.json();
+      responseData && setGallery(responseData);
     })();
-  }, [dataGallery]);
+  }, [data]);
 
   return (
     <div className="mt-6 flex h-full flex-col gap-4">
@@ -45,9 +42,9 @@ export default function Gallery() {
             transition: { ease: "easeOut", delay: 0.5 },
           }}
         >
-          {data?.user?.name}
+          {dataSession?.user?.name}
         </motion.div>
-        {data?.user?.image && (
+        {dataSession?.user?.image && (
           <motion.img
             initial={{ opacity: 0, translateX: "10%", height: "0%" }}
             animate={{
@@ -58,33 +55,23 @@ export default function Gallery() {
             }}
             className="rounded-full object-cover"
             width={"30px"}
-            src={data?.user?.image}
+            src={dataSession?.user?.image}
             alt="user_profile_photo"
           />
         )}
       </div>
-      {status == "unauthenticated" && (
-        <AnimatePresence>
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, translateY: "20%" }}
-            animate={{ opacity: 1, translateY: 0 }}
-          >
-            Couldn&apos;t show your images please login{" "}
-          </motion.div>
-        </AnimatePresence>
-      )}
       {isLoading && <Loading />}
+      {error && <ErrorSession />}
       {gallery && (
         <motion.div
           className="mt-8 flex flex-wrap justify-center gap-8 px-4"
-          variants={parentVariants}
+          variants={parentGallery}
           initial="hidde"
           animate="show"
         >
           {gallery.map((post) => (
             <motion.div
-              variants={childrenVariants}
+              variants={childrenGallery}
               key={Math.random().toString()}
               className={css.imageContainer}
             >
@@ -101,6 +88,15 @@ export default function Gallery() {
               </button>
             </motion.div>
           ))}
+        </motion.div>
+      )}
+      {status == "unauthenticated" && (
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, translateY: "20%" }}
+          animate={{ opacity: 1, translateY: 0 }}
+        >
+          Couldn&apos;t show your images please login{" "}
         </motion.div>
       )}
     </div>

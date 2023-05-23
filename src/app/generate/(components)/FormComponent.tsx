@@ -1,5 +1,6 @@
 import { generateAndSaveImage } from "@/openAI/actions";
 import InputClient from "./InputClient";
+import { useServerStore } from "@/store";
 
 export default function FormComponent() {
   return (

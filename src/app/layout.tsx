@@ -26,7 +26,7 @@ export default function RootLayout({
               className="flex items-center gap-2 rounded-md border p-2 duration-200  hover:bg-slate-200 active:translate-y-1"
               href="/"
             >
-              Dall-e api
+              Salvador Dall-e
               <Image
                 alt="openlogo"
                 src={"/open_logo.svg"}

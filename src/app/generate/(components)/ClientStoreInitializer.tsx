@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/store";
+import { useServerStore } from "@/store";
 import { formOpenAI } from "@/types";
 import { useRef } from "react";
 
@@ -11,7 +11,7 @@ export default function ClientStoreInitializer(
   const initialized = useRef(false);
 
   if (!initialized.current) {
-    useStore.setState({ ...props });
+    useServerStore.setState({ ...props });
     initialized.current = true;
   }
   return <>{children}</>;

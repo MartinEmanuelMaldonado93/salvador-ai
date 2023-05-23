@@ -50,19 +50,19 @@ export default function ImageGenerated({
                 className="rounded-md border px-2 py-1 shadow-md active:translate-y-[1px]"
                 disabled={saved}
                 onClick={() => {
-                  // async () => {
-                  //   try {
-                  //     const result = await saveImage({
-                  //       photo_url,
-                  //       prompt,
-                  //       user_name,
-                  //     });
-                  //     result && setSaved(true);
-                  //     console.log(result);
-                  //   } catch {
-                  //     console.log("save failed");
-                  //   }
-                  // };
+                  async () => {
+                    try {
+                      const result = await saveImage({
+                        photo_url,
+                        prompt,
+                        user_name,
+                      });
+                      result && setSaved(true);
+                      console.log(result);
+                    } catch {
+                      console.log("save failed");
+                    }
+                  };
                 }}
               >
                 Save image

@@ -2,9 +2,18 @@ import { getImagesByUser } from "@/db_mongo/actions";
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: Request) {
+	// post ...
+}
+
+export async function DELETE(request: Request) {
+	// delete item...
+}
+
+export async function GET(request: Request ) {
 	try {
-		const user_name = await request.json();
-		const img_url = await getImagesByUser({ user_name });
+		const { searchParams } = new URL(request.url);
+		const img_url = await getImagesByUser({ user_name: searchParams.get("user") });
+		
 		if (!Array.isArray(img_url)) throw new Error('gallery failed');
 
 		return NextResponse.json(img_url);
@@ -12,17 +21,4 @@ export async function POST(request: Request) {
 	catch (e) {
 		console.log(e)
 	}
-}
-
-export async function DELETE(request: Request) {
-	const r = await request.json();
-	// console.log(r);
-	return NextResponse.json('hello from api/gallery');
-}
-
-export async function GET(request: Request) {
-	const r = await request.json();
-	console.log(r)
-	// const img_url = getImagesByUser();
-	return NextResponse.json('hello from api/gallery');
 }

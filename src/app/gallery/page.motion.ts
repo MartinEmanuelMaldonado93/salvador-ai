@@ -1,6 +1,6 @@
 import { Variants } from "framer-motion";
 
-export const parentVariants: Variants = {
+export const parentGallery: Variants = {
 	hidde: {},
 	show: {
 		transition: {
@@ -11,7 +11,7 @@ export const parentVariants: Variants = {
 	},
 }
 
-export const childrenVariants: Variants = {
+export const childrenGallery: Variants = {
 	hidde: { opacity: 0, translateY: '20%' },
 	show: {
 		opacity: 1,

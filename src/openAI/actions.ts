@@ -1,5 +1,5 @@
 "use server";
-import { useStore } from "@/store";
+import { useServerStore } from "@/store";
 import { revalidatePath } from "next/cache";
 import { enviroments } from "@/env.mjs";
 import { formOpenAI, imageObject } from "@/types";
@@ -16,7 +16,7 @@ export async function generateAndSaveImage(form: FormData) {
     const b64_image = await getImageGenerated({ prompt: String(prompt) }) ?? {};
     if (!b64_image) throw new Error("image b64 not available");
 
-    useStore.setState({
+    useServerStore.setState({
       photo_url: `data:image/jpeg;base64,${b64_image}`,
       user_name: String(user_name),
       prompt: String(prompt),
