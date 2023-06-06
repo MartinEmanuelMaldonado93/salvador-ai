@@ -6,7 +6,7 @@ export const parentGallery: Variants = {
 		transition: {
 			when: "beforeChildren",
 			delayChildren: 0.4,
-			staggerChildren: 0.3,
+			staggerChildren: 0.2,
 		},
 	},
 }
@@ -17,8 +17,9 @@ export const childrenGallery: Variants = {
 		opacity: 1,
 		translateY: 0,
 		transition: {
-			stiffness: 90,
+			stiffness: 60,
 			damping: 2,
+			mass: 1.9,
 		}
 	},
 }

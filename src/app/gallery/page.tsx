@@ -28,10 +28,11 @@ export default function Gallery() {
       const responseData = await data?.json();
       responseData && setGallery(responseData);
     })();
+	console.log(dataSession?.user?.image);
   }, [data]);
 
   return (
-    <div className="mt-6 flex h-full flex-col gap-4">
+    <div className="mt-6 flex h-full flex-col gap-4 max-w-6xl m-auto">
       <div className="flex items-center justify-center gap-8">
         <motion.div
           initial={{ opacity: 0, translateY: "10%", height: "0%" }}

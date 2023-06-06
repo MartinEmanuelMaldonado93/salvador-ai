@@ -18,7 +18,7 @@ export default function ImageGenerated({
   if (!photo_url) return null;
 
   return (
-    <div className="shadow-md">
+    <div className="p-4 shadow-md">
       <div className="mx-auto flex h-64 w-64 flex-col items-center justify-center rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
         <img
           placeholder="blur"

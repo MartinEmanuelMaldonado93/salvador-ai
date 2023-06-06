@@ -16,7 +16,6 @@ export default function InputClient() {
         value={prompt}
         required
         onChange={async ({ target }) => {
-          if (!target.value) return;
           setPrompt(target.value);
         }}
       />
