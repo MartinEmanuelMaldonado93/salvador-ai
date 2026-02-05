@@ -29,7 +29,7 @@
     "tailwindcss": "3.3.2",
     "ts-pattern": "^4.3.0",
     "typescript": "5.0.4",
-    "zod": "^3.21.4",
+    "zod": "^3.25.76",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
